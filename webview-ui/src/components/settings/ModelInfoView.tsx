@@ -25,6 +25,20 @@ export const ModelInfoView = ({
 	const { t } = useAppTranslation()
 	const isGemini = useMemo(() => Object.keys(geminiModels).includes(selectedModelId), [selectedModelId])
 
+	const getGeminiFreeRequestsCount = (modelId: string) => {
+		if (modelId.includes("flash-lite")) {
+			return 30
+		} else if (modelId.includes("flash-thinking")) {
+			return 10
+		} else if (["gemini-2.0-flash", "gemini-1.5-flash"].some((prefix) => modelId.includes(prefix))) {
+			return 15
+		} else if (modelId.includes("pro-exp")) {
+			return 5
+		} else {
+			return 2
+		}
+	}
+
 	const infoItems = [
 		<ModelInfoSupportsItem
 			isSupported={modelInfo.supportsImages ?? false}
@@ -76,7 +90,7 @@ export const ModelInfoView = ({
 		isGemini && (
 			<span className="italic">
 				{t("settings:modelInfo.gemini.freeRequests", {
-					count: selectedModelId && selectedModelId.includes("flash") ? 15 : 2,
+					count: getGeminiFreeRequestsCount(selectedModelId),
 				})}{" "}
 				<VSCodeLink href="https://ai.google.dev/pricing" className="text-sm">
 					{t("settings:modelInfo.gemini.pricingDetails")}
