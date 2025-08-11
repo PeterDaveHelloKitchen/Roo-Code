@@ -46,6 +46,16 @@ export const openAiNativeModels = {
 		description: "GPT-5 Nano: Fastest, most cost-efficient version of GPT-5",
 		supportsVerbosity: true,
 	},
+	"gpt-5-chat-latest": {
+		maxTokens: 128000,
+		contextWindow: 400000,
+		supportsImages: true,
+		supportsPromptCache: false,
+		inputPrice: 1.25,
+		outputPrice: 10,
+		cacheReadsPrice: 0.125,
+		description: "GPT-5 Chat: Points to the GPT-5 snapshot currently used in ChatGPT"
+	},
 	"gpt-4.1": {
 		maxTokens: 32_768,
 		contextWindow: 1_047_576,
